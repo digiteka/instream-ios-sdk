@@ -140,18 +140,8 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     public func viewDidAutoPlayTopAsLeft() {
         
         self.removeViewExisting()
-<<<<<<< HEAD
-        let frame = CGRect(x: 100 ,y: 100, width: 250, height: 250)
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)
-=======
-       
->>>>>>> d20c25d94c4042b12ff095c0a24cf8be63c2b278
       
-        let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,
-                           height: 150)
+        let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,height: 150)
         contentView = DigitekaView(frame: frame)
         contentView?.backgroundColor = UIColor.black
         view.addSubview(contentView ?? UIView())
@@ -160,15 +150,15 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     }
     public func viewDidAutoPlayTopAsRightDidScroll() {
         
-<<<<<<< HEAD
-=======
+
+        self.removeViewExisting()
         let frame = CGRect(x: self.view.frame.width - 200 , y: self.view.frame.height , width: 200  ,
                            height: 150)
         contentView = DigitekaView(frame: frame)
         contentView?.backgroundColor = UIColor.black
         view.addSubview(contentView ?? UIView())
         contentView?.moveViews(y: -self.view.frame.height, false)
->>>>>>> d20c25d94c4042b12ff095c0a24cf8be63c2b278
+
         
     
     }
