@@ -140,11 +140,7 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     public func viewDidAutoPlayTopAsLeft() {
         
         self.removeViewExisting()
-        let frame = CGRect(x: 100 ,y: 100, width: 250, height: 250)
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)
+       
       
         let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,
                            height: 150)
