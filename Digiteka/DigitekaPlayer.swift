@@ -76,20 +76,42 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     
     public func viewDidAutoPlayTopAsLeft() {
       
-        
-    }
-    public func viewDidAutoPlayTopAsRightDidScroll() {
-    
-    }
-    public func viewDidAutoPlayBottomAsLeft() {
-        self.removeViewExisting()
-        let frame = CGRect(x: 20, y: self.view.frame.height * 1.7, width: self.view.frame.width - 40 ,
-                           height: self.view.frame.height - 180)
+        let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,
+                           height: 150)
         contentView = DigitekaView(frame: frame)
         contentView?.backgroundColor = UIColor.black
         view.addSubview(contentView ?? UIView())
         contentView?.moveViews(y: -self.view.frame.height, false)
         
+    }
+    public func viewDidAutoPlayTopAsRightDidScroll() {
+        
+        let frame = CGRect(x: self.view.frame.width - 200 , y: self.view.frame.height , width: 200  ,
+                           height: 150)
+        contentView = DigitekaView(frame: frame)
+        contentView?.backgroundColor = UIColor.black
+        view.addSubview(contentView ?? UIView())
+        contentView?.moveViews(y: -self.view.frame.height, false)
+        
+    
+    }
+    public func viewDidAutoPlayBottomAsLeft() {
+        self.removeViewExisting()
+        /*let frame = CGRect(x: 20, y: self.view.frame.height * 1.7, width: self.view.frame.width - 40 ,
+                           height: self.view.frame.height - 180)
+        contentView = DigitekaView(frame: frame)
+        contentView?.backgroundColor = UIColor.black
+        view.addSubview(contentView ?? UIView())
+        contentView?.moveViews(y: -self.view.frame.height, false)*/
+        
+        let frame = CGRect(x: 20, y: self.view.frame.size.height * 2 - 150  , width: 200  ,
+                           height: 150)
+    
+        contentView = DigitekaView(frame: frame)
+        contentView?.backgroundColor = UIColor.black
+        view.addSubview(contentView ?? UIView())
+        contentView?.moveViews(y: -self.view.frame.height, false)
+        print("screen height =" ,self.view.frame.height * 2)
     }
 }
 
