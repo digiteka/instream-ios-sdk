@@ -7,6 +7,7 @@
 //
 import UIKit
 import WebKit
+import JavaScriptCore
 
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
@@ -121,6 +122,14 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
      }
     
+
+    private func loadView(_ frame : CGRect){
+        self.removeViewExisting()
+        contentView = DigitekaView(frame: frame)
+        contentView?.backgroundColor = UIColor.clear
+        view.addSubview(contentView ?? UIView())
+        contentView?.moveViews(y: -self.view.frame.height, false)
+    }
 }
 
 
@@ -137,48 +146,36 @@ extension DigitekaPlayer : WKNavigationDelegate {
 
 extension DigitekaPlayer : WebViewHelpersDelegate {
     
-    public func viewDidAutoPlayTopAsLeft() {
-        
+    public func hideDidScroll() {
         self.removeViewExisting()
-      
+    }
+    public func viewDidAutoPlayTopAsLeft() {
         let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,height: 150)
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)
-        
+        self.loadView(frame)
     }
     public func viewDidAutoPlayTopAsRightDidScroll() {
-        
-
-        self.removeViewExisting()
-        let frame = CGRect(x: self.view.frame.width - 200 , y: self.view.frame.height , width: 200  ,
-                           height: 150)
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)
-
-        
-    
+        let frame = CGRect(x: self.view.frame.width - 200 ,
+                           y: self.view.frame.height,width: 200, height: 150)
+        self.loadView(frame)
     }
     public func viewDidAutoPlayBottomAsLeft() {
-        self.removeViewExisting()
-        /*let frame = CGRect(x: 20, y: self.view.frame.height * 1.7, width: self.view.frame.width - 40 ,
-                           height: self.view.frame.height - 180)
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)*/
-        
-        let frame = CGRect(x: 20, y: self.view.frame.size.height * 2 - 150  , width: 200  ,
+        let frame = CGRect(x: 20,
+                           y: self.view.frame.size.height * 2 - 150,
+                           width: 200,
                            height: 150)
+        self.loadView(frame)
+    }
     
-        contentView = DigitekaView(frame: frame)
-        contentView?.backgroundColor = UIColor.black
-        view.addSubview(contentView ?? UIView())
-        contentView?.moveViews(y: -self.view.frame.height, false)
-        print("screen height =" ,self.view.frame.height * 2)
+    public func onChangeScrollView(_ scrollView: UIScrollView) {
+        //Ato Via SDK manova visiblity
+    }
+    public func onScrollTopLeft(_ isHashShow: Bool, _ contentOffset: CGPoint) {
+    }
+    public func onScrollBottomLeft(_ isHashShow: Bool, _ contentOffset: CGPoint) {
+        
+    }
+    public func onScrollTopRight(_ isHashShow: Bool, _ contentOffset: CGPoint) {
+        
     }
 }
 

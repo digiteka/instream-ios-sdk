@@ -17,15 +17,14 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         let webView = WKWebView (frame: self.bounds)
         webView.translatesAutoresizingMaskIntoConstraints = false 
         webView.navigationDelegate = self
-       // webView.scrollView.frame = self.webView.frame
         webView.scrollView.contentInset = UIEdgeInsets(top: 10,left: 0,bottom: 0,right: 0)
         webView.scrollView.delegate = self
         webView.scrollView.bounces = false
+        webView.backgroundColor = .black
         webView.contentMode = .scaleToFill
         webView.allowsBackForwardNavigationGestures = true
         self.addSubview(webView)
-        
-        //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
+
         loadHTML2(webview: webView)
         
     
