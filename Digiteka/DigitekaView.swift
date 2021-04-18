@@ -17,7 +17,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         let webView = WKWebView (frame: self.bounds)
         webView.translatesAutoresizingMaskIntoConstraints = false 
         webView.navigationDelegate = self
-        webView.scrollView.contentInset = UIEdgeInsets(top: 10,left: 0,bottom: 0,right: 0)
+        webView.scrollView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         webView.scrollView.delegate = self
         webView.scrollView.bounces = false
         webView.backgroundColor = .black
@@ -30,6 +30,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
     
     }
     
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,20 +40,29 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         }
     }
    public func animateWithSpring( _ pointX: CGFloat, _ delay: TimeInterval) {
-        let targatAlpha: CGFloat = self.alpha == 0 ? 1 : 0
-        UIView.animate(withDuration: 0.25, delay: delay, usingSpringWithDamping: 0.25, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.alpha = targatAlpha
-            self.center.x = pointX
-        })
+//        let targatAlpha: CGFloat = self.alpha == 0 ? 1 : 0
+//        UIView.animate(withDuration: 0.25, delay: delay, usingSpringWithDamping: 0.25, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+//            self.alpha = targatAlpha
+//            self.center.x = pointX
+//        })
     }
+    
+    
+    
   public func moveViews(y: CGFloat, _ shouldRemove: Bool) {
-        UIView.animate(withDuration: 0.5, animations: {
-              self.center.y += y
-        }) { (success) in
-            if shouldRemove {
-                self.removeFromSuperview()
-            }
+//        UIView.animate(withDuration: 0.5, animations: {
+//              self.center.y += y
+//        }) { (success) in
+//            if shouldRemove {
+//                self.removeFromSuperview()
+//            }
+//        }
+    
+        self.center.y+=y
+        if shouldRemove {
+            self.removeFromSuperview()
         }
+    
     }
     
     public func loadHTML2(webview : WKWebView){

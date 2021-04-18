@@ -12,8 +12,9 @@ import JavaScriptCore
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
-    
-    
+    public var _position : String?
+
+
     open override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -24,7 +25,9 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
     }
     
-    public func affiche_webview(_view : UIView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
+    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
+        
+        _position = position
         
         self.webView = WKWebView (frame: _view.bounds)
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,15 +43,22 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
         
+        //Config JavaScript
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences = preferences
+        self.webView.configuration.preferences.javaScriptEnabled = true
+        
         loadHTMLDigiteka(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
+        
+    
       
     }
     
     public func loadHTMLDigiteka(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
-        
         let myURL = URL(string:"https://www.20minutes.fr/")
-        
         
         let html = "<html>\n" +
             "<head>\n" +
@@ -150,12 +160,12 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         self.removeViewExisting()
     }
     public func viewDidAutoPlayTopAsLeft() {
-        let frame = CGRect(x: 20, y: self.view.frame.height , width: 200  ,height: 150)
+        let frame = CGRect(x: 20, y: self.view.frame.height+90 , width: 200  ,height: 150)
         self.loadView(frame)
     }
     public func viewDidAutoPlayTopAsRightDidScroll() {
         let frame = CGRect(x: self.view.frame.width - 200 ,
-                           y: self.view.frame.height,width: 200, height: 150)
+                           y: self.view.frame.height+90,width: 200, height: 150)
         self.loadView(frame)
     }
     public func viewDidAutoPlayBottomAsLeft() {
@@ -177,5 +187,35 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     public func onScrollTopRight(_ isHashShow: Bool, _ contentOffset: CGPoint) {
         
     }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print (_position)
+
+        if scrollView.contentOffset.y >= 80 {
+
+                hideDidScroll()
+                self.view.layoutIfNeeded()
+
+
+        }else if scrollView.contentOffset.y <= 200 {
+            
+            if _position == "top_left" {
+                self.viewDidAutoPlayTopAsLeft()
+                
+            }else if _position == "top_right" {
+                self.viewDidAutoPlayTopAsRightDidScroll()
+    
+            }else if _position == "bottom_left" {
+                self.viewDidAutoPlayBottomAsLeft()
+                
+            }
+            
+            
+            self.view.layoutIfNeeded()
+
+        }
+
+    }
 }
+
 
