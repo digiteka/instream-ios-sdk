@@ -44,11 +44,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
         
         //Config JavaScript
-        let preferences = WKPreferences()
-        preferences.javaScriptEnabled = true
-        let configuration = WKWebViewConfiguration()
-        configuration.preferences = preferences
-        self.webView.configuration.preferences.javaScriptEnabled = true
+//        let preferences = WKPreferences()
+//        preferences.javaScriptEnabled = true
+//        let configuration = WKWebViewConfiguration()
+//        configuration.preferences = preferences
+//        webView.configuration.preferences.javaScriptEnabled = true
         
         loadHTMLDigiteka(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
         
@@ -164,13 +164,13 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         self.loadView(frame)
     }
     public func viewDidAutoPlayTopAsRightDidScroll() {
-        let frame = CGRect(x: self.view.frame.width - 200 ,
+        let frame = CGRect(x: self.view.frame.width - 220 ,
                            y: self.view.frame.height+90,width: 200, height: 150)
         self.loadView(frame)
     }
     public func viewDidAutoPlayBottomAsLeft() {
         let frame = CGRect(x: 20,
-                           y: self.view.frame.size.height * 2 - 150,
+                           y: self.view.frame.size.height * 2 - 170,
                            width: 200,
                            height: 150)
         self.loadView(frame)
@@ -189,8 +189,9 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //print (_position)
-
+        
+        print (scrollView.contentOffset.y)
+        
         if scrollView.contentOffset.y >= 80 {
 
                 hideDidScroll()
@@ -198,7 +199,7 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
 
 
         }else if scrollView.contentOffset.y <= 200 {
-            
+             
             if _position == "top_left" {
                 self.viewDidAutoPlayTopAsLeft()
                 
@@ -213,6 +214,23 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
             
             self.view.layoutIfNeeded()
 
+        }
+        
+        if scrollView.contentOffset.y >= 1100.0 {
+            
+            if _position == "top_left" {
+                self.viewDidAutoPlayTopAsLeft()
+                        
+            }else if _position == "top_right" {
+                self.viewDidAutoPlayTopAsRightDidScroll()
+            
+            }else if _position == "bottom_left" {
+                self.viewDidAutoPlayBottomAsLeft()
+                        
+            }
+            
+            self.view.layoutIfNeeded()
+            
         }
 
     }
