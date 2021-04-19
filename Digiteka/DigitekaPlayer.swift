@@ -13,8 +13,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
     public var _position : String?
-
-
+   
     open override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -28,14 +27,19 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         _position = position
+    
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
+        
         config.allowsInlineMediaPlayback = true
         config.preferences = preferences
+        
         let scriptString = "controll('play');"
+       
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
-            config.userContentController.addUserScript(script)
+        config.userContentController.addUserScript(script)
+        
         
         self.webView = WKWebView(frame: _view.bounds, configuration: config)
      
@@ -203,9 +207,10 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         
     }
     
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        print (scrollView.contentOffset.y)
+        //print (scrollView.contentOffset.y)
         
         if scrollView.contentOffset.y >= 80 {
 
