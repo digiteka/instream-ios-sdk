@@ -28,8 +28,19 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         _position = position
+        let preferences = WKPreferences()
+         preferences.javaScriptEnabled = true
+        let config = WKWebViewConfiguration()
+        config.allowsInlineMediaPlayback = true
+        config.preferences = preferences
+        let scriptString = "controll('play');"
+        let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
+            config.userContentController.addUserScript(script)
         
-        self.webView = WKWebView (frame: _view.bounds)
+        self.webView = WKWebView(frame: _view.bounds, configuration: config)
+     
+        webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.navigationDelegate = self
         self.webView.scrollView.frame = self.webView.frame
@@ -37,24 +48,25 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.scrollView.delegate = self
         self.webView.scrollView.bounces = false
         self.webView.contentMode = .scaleToFill
-    
+        self.webView.callJS(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
         _view.addSubview(webView)
         
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
-        
-        //Config JavaScript
-//        let preferences = WKPreferences()
-//        preferences.javaScriptEnabled = true
-//        let configuration = WKWebViewConfiguration()
-//        configuration.preferences = preferences
-//        webView.configuration.preferences.javaScriptEnabled = true
-        
+
         loadHTMLDigiteka(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
         
     
     }
-    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "error":
+            let error = (message.body as? [String: Any])?["message"] as? String ?? "unknown"
+            assertionFailure("JavaScript error: \(error)")
+        default:
+            assertionFailure("Received invalid message: \(message.name)")
+        }
+    }
     public func loadHTMLDigiteka(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         let myURL = URL(string:"https://www.20minutes.fr/")
@@ -150,6 +162,10 @@ extension DigitekaPlayer : WKNavigationDelegate {
           }
           decisionHandler(.allow)
       }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        print("An error from web view: \(message)")
+    }
 
 }
 
