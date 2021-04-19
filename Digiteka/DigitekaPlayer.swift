@@ -31,11 +31,15 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
+        config.allowsInlineMediaPlayback = true
         config.preferences = preferences
         let scriptString = "controll('play');"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
-        self.webView = WKWebView (frame: _view.bounds, configuration: config)
+        
+        self.webView = WKWebView(frame: _view.bounds, configuration: config)
+     
+        webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.navigationDelegate = self
@@ -55,7 +59,15 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
       
     }
-    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "error":
+            let error = (message.body as? [String: Any])?["message"] as? String ?? "unknown"
+            assertionFailure("JavaScript error: \(error)")
+        default:
+            assertionFailure("Received invalid message: \(message.name)")
+        }
+    }
     public func loadHTMLDigiteka(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         let myURL = URL(string:"https://www.20minutes.fr/")
@@ -151,6 +163,10 @@ extension DigitekaPlayer : WKNavigationDelegate {
           }
           decisionHandler(.allow)
       }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        print("An error from web view: \(message)")
+    }
 
 }
 

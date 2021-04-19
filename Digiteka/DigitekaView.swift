@@ -17,12 +17,14 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
+        config.allowsInlineMediaPlayback = true
         let scriptString = "controll('play');"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
         config.preferences = preferences
       
         webView = WKWebView(frame: self.bounds,configuration: config)
+        webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false 
         webView.navigationDelegate = self
@@ -32,6 +34,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         webView.backgroundColor = .black
         webView.contentMode = .scaleToFill
         webView.allowsBackForwardNavigationGestures = true
+        webView.callJS(scriptString)
         self.addSubview(webView)
 
         loadHTML2(webview: webView)
