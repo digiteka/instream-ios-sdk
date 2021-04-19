@@ -28,8 +28,15 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         _position = position
-        
-        self.webView = WKWebView (frame: _view.bounds)
+        let preferences = WKPreferences()
+         preferences.javaScriptEnabled = true
+        let config = WKWebViewConfiguration()
+        config.preferences = preferences
+        let scriptString = "controll('play');"
+        let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
+            config.userContentController.addUserScript(script)
+        self.webView = WKWebView (frame: _view.bounds, configuration: config)
+        webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.navigationDelegate = self
         self.webView.scrollView.frame = self.webView.frame
@@ -37,19 +44,12 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.scrollView.delegate = self
         self.webView.scrollView.bounces = false
         self.webView.contentMode = .scaleToFill
-    
+        self.webView.callJS(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
         _view.addSubview(webView)
         
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
-        
-        //Config JavaScript
-//        let preferences = WKPreferences()
-//        preferences.javaScriptEnabled = true
-//        let configuration = WKWebViewConfiguration()
-//        configuration.preferences = preferences
-//        webView.configuration.preferences.javaScriptEnabled = true
-        
+
         loadHTMLDigiteka(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
         
     
