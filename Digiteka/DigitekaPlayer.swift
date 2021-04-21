@@ -55,6 +55,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.callJS(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
         _view.addSubview(webView)
+        webView.frame.size.width = _view.frame.size.width + 40
+        
+        self.webView.backgroundColor = .black
+       
+        
         
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
 
