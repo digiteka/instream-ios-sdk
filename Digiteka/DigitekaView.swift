@@ -22,10 +22,12 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
+        
         let scriptString = "controll('play');"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
         config.preferences = preferences
+        
       
         webView = WKWebView(frame: self.bounds,configuration: config)
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")

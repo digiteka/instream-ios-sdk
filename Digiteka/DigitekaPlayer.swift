@@ -13,12 +13,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
     public var _position : String?
-    
-    private var viewTop : TopLeftV?
+
     
     public var top : UIView!
     
-    
+
     open override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -28,16 +27,19 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
         _position = position
         
-        
-        
+    
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
+        
         config.allowsInlineMediaPlayback = true
         config.preferences = preferences
+        
         let scriptString = "controll('play');"
+       
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
-            config.userContentController.addUserScript(script)
+        config.userContentController.addUserScript(script)
+        
         
         
         self.webView = WKWebView(frame: _view.bounds, configuration: config)
@@ -55,6 +57,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.allowsBackForwardNavigationGestures = true
         
         _view.addSubview(webView)
+        webView.frame.size.width = _view.frame.size.width + 40
+        
+        self.webView.backgroundColor = .black
+       
+        
         
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
         
@@ -74,7 +81,6 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
         loadHTMLDigiteka(webview: webView,visiblePlayer : webtop,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
     
-      
     }
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
@@ -244,9 +250,10 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         
     }
     
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        print (scrollView.contentOffset.y)
+        //print (scrollView.contentOffset.y)
         
         if scrollView.contentOffset.y >= 80 {
 
