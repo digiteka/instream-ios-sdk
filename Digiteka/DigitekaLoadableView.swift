@@ -23,14 +23,29 @@ open class DigitekaLoadableView: UIView {
     }
    
    public func loadView() -> UIView {
-        let name = String(describing: type(of: self))
+    
+        //tokony misy load Bundle aloha
+    
+        /*let frameworkBundleID  = "com.igy.Digiteka";
+        let bundle = Bundle(identifier: frameworkBundleID)*/
+    
+        //let bundle = Bundle(for: DigitekaPlayer.self)
+    
+        /*let bundle = Bundle(for: self.classForCoder)
+        
+        let nib = UINib(nibName: "TopLeftView", bundle: bundle)
+        nib.instantiate(withOwner: self, options: nil)*/
+    
+        let name = "TopLeftView" /*String(describing: type(of: self))*/
+    
         if let view = Bundle.main.loadNibNamed(name, owner: self, options: nil)?.first as? UIView {
-            self.addSubview(view)
-            view.frame = bounds
-            view.autoresizingMask = [ .flexibleWidth, .flexibleHeight]
-            return view
-        }else {
-            return UIView()
+            
+                self.addSubview(view)
+                view.frame = bounds
+                view.autoresizingMask = [ .flexibleWidth, .flexibleHeight]
+                return view
+            }else {
+                return UIView()
+            }
         }
-    }
 }

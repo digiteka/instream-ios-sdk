@@ -10,12 +10,34 @@ import UIKit
 
 class TopLeftV: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    @IBOutlet weak var sampleView: UIView!
+    @IBOutlet var contentView: UIView!
+    
+    override init(frame: CGRect) {
+        super.init(frame:frame)
+        loadView()
+        
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder : aDecoder)
+        loadView()
+      
+    }
+    
+    public func loadView(){
+        
+        //Bundle.main.loadNibNamed("TopLeftView", owner: self, options: nil)
+        let bundle = Bundle(for: self.classForCoder)
+        
+        let nib = UINib(nibName: "TopLeftView", bundle: bundle)
+        
+        nib.instantiate(withOwner: self, options: nil)
+        addSubview(contentView)
+        contentView.frame = self.bounds
+        contentView.autoresizingMask = [ .flexibleWidth, .flexibleHeight]
+        
+    }
 
 }
