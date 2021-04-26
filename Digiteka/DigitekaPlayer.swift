@@ -13,9 +13,18 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
     public var _position : String?
+    
+    //Script
+    public var scriptString : String!
 
     
-    public var top : UIView!
+    //Visible Player
+    public var player : UIView!
+    
+    //Param client
+    
+    public var __position : String?
+    
     
 
     open override func viewDidLoad() {
@@ -23,11 +32,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
       
     }
     
-    public func affiche_webview(_view : UIView,parent:UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
+    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
-        _position = position
+        __position = position
         
-    
+        
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
@@ -35,15 +44,30 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         config.allowsInlineMediaPlayback = true
         config.preferences = preferences
         
-        let scriptString = "controll('play');"
-       
+        //Config Player
+        self.removeViewExisting()
+        if position == "top_left"  {
+            scriptString = "controll('play');"
+            player = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
+            self.webView = WKWebView(frame: _view.bounds, configuration: config)
+            
+        }else if position == "top_right" {
+            scriptString = "controll('play');"
+            player = UIView(frame: CGRect(x: self.view.frame.width-220, y: 90 , width: 200  ,height: 150))
+            self.webView = WKWebView(frame: _view.bounds, configuration: config)
+            
+        }else if position == "bottom_left" {
+            scriptString = " "
+            player = UIView(frame: CGRect(x: 20,y: self.view.frame.size.height  - 180,width: 200,height: 150))
+            self.webView = WKWebView(frame: _view.bounds/*, configuration: config*/)
+            
+        }
+        
+        
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
         config.userContentController.addUserScript(script)
         
         
-        
-        self.webView = WKWebView(frame: _view.bounds, configuration: config)
-     
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,31 +81,49 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.allowsBackForwardNavigationGestures = true
         
         _view.addSubview(webView)
-        webView.frame.size.width = _view.frame.size.width + 40
+        webView.frame.size.width = _view.frame.size.width
         
-        self.webView.backgroundColor = .black
-       
-        
-        
+
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
-        
-        /*let top = WKWebView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150),configuration: config)
-        top.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        top.configuration.preferences.javaScriptEnabled = true
-        self.view.addSubview(top)*/
-        
-        self.removeViewExisting()
-        
-        top = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
-        let webtop = WKWebView(frame : top.bounds , configuration: config)
-        top.addSubview(webtop)
-        top.backgroundColor = UIColor.black
-        self.view.addSubview(top)
-        
     
-        loadHTMLDigiteka(webview: webView,visiblePlayer : webtop,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
+        //let webViewPlayer = WKWebView(frame : player.bounds , configuration: config)
+        player.addSubview(webView)
+        self.view.addSubview(player)
+        
+        
+        loadHTMLDigiteka(webview: webView,/*visiblePlayer : webViewPlayer,*/paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
+        
+        Addclose(v: player)
+        
+        
+        /*let lb = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(test))
+        lb.addGestureRecognizer(tap)
+        let v = UIView(frame: self.bounds)*/
     
     }
+    
+
+    
+    public func Addclose(v : UIView){
+        
+        let lb = UILabel(frame: CGRect(x: v.frame.width-25, y: 10, width: 25, height: 25))
+        lb.text = "x"
+        lb.textColor = UIColor.black
+        
+        v.addSubview(lb)
+        /*let tap = UITapGestureRecognizer(target: self, action: #selector(closePlayer()))
+        lb.addGestureRecognizer(tap)*/
+        //let v = UIView(frame: self.bounds)
+        
+    }
+    
+    @objc func closePlayer(){
+        self.removeViewExisting()
+        
+    }
+    
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
         case "error":
@@ -91,7 +133,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
             assertionFailure("Received invalid message: \(message.name)")
         }
     }
-    public func loadHTMLDigiteka(webview : WKWebView,visiblePlayer : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
+    public func loadHTMLDigiteka(webview : WKWebView,/*visiblePlayer : WKWebView*/paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         let myURL = URL(string:"https://www.20minutes.fr/")
         
@@ -145,13 +187,15 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         "</html>"
         
         webview.loadHTMLString(html, baseURL: myURL)
-        visiblePlayer.loadHTMLString(html, baseURL:myURL)
+        //visiblePlayer.loadHTMLString(html, baseURL:myURL)
         
     }
     
     
 
    private func removeViewExisting() {
+    
+        player?.isHidden = true
        
         /*if contentView != nil {
             contentView?.removeFromSuperview()
@@ -159,10 +203,12 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         }*/
         //top.removeFromSuperview()
     
-        if top != nil {
+        /*if top != nil {
             top.removeFromSuperview()
             top = nil
-        }
+        }*/
+    
+    
     
         
     }
@@ -217,25 +263,23 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     public func viewDidAutoPlayTopAsLeft() {
         /*let frame = CGRect(x: 20, y: self.view.frame.height+90 , width: 200  ,height: 150)
         self.loadView(frame)*/
-        self.removeViewExisting()
-        top = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
-        /*let webtop = WKWebView(frame : top.bounds , configuration: config)
-        top.addSubview(webtop)*/
-        top.backgroundColor = UIColor.black
-        self.view.addSubview(top)
+        
+        player.isHidden = false
         
     }
     public func viewDidAutoPlayTopAsRightDidScroll() {
-        let frame = CGRect(x: self.view.frame.width - 220 ,
+        /*let frame = CGRect(x: self.view.frame.width - 220 ,
                            y: self.view.frame.height+90,width: 200, height: 150)
-        self.loadView(frame)
+        self.loadView(frame)*/
+        player.isHidden = false
     }
     public func viewDidAutoPlayBottomAsLeft() {
-        let frame = CGRect(x: 20,
+        /*let frame = CGRect(x: 20,
                            y: self.view.frame.size.height * 2 - 170,
                            width: 200,
                            height: 150)
-        self.loadView(frame)
+        self.loadView(frame)*/
+        player.isHidden = false
     }
     
     public func onChangeScrollView(_ scrollView: UIScrollView) {
@@ -253,8 +297,7 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        //print (scrollView.contentOffset.y)
-        
+    
         if scrollView.contentOffset.y >= 80 {
 
                 hideDidScroll()
@@ -263,13 +306,13 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
 
         }else if scrollView.contentOffset.y <= 200 {
              
-            if _position == "top_left" {
+            if __position == "top_left" {
                 self.viewDidAutoPlayTopAsLeft()
                 
-            }else if _position == "top_right" {
+            }else if __position == "top_right" {
                 self.viewDidAutoPlayTopAsRightDidScroll()
     
-            }else if _position == "bottom_left" {
+            }else if __position == "bottom_left" {
                 self.viewDidAutoPlayBottomAsLeft()
                 
             }
@@ -281,13 +324,13 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         
         if scrollView.contentOffset.y >= 1100.0 {
             
-            if _position == "top_left" {
+            if __position == "top_left" {
                 self.viewDidAutoPlayTopAsLeft()
                         
-            }else if _position == "top_right" {
+            }else if __position == "top_right" {
                 self.viewDidAutoPlayTopAsRightDidScroll()
             
-            }else if _position == "bottom_left" {
+            }else if __position == "bottom_left" {
                 self.viewDidAutoPlayBottomAsLeft()
                         
             }
