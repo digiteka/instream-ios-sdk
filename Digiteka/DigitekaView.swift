@@ -9,24 +9,26 @@
 import UIKit
 import WebKit
 
-open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
+open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
     private var webView : WKWebView!
-   private var vtop : DigitekaTopView?
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
         print ("todo init")
+        print("todo init ")
         
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
+        
         let scriptString = "controll('play');"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
         config.preferences = preferences
+        
       
         webView = WKWebView(frame: self.bounds,configuration: config)
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -44,15 +46,16 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         
         webView.callJS(scriptString)
         
+        webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
+        
         
         self.addSubview(webView)
-
-        loadHTML2(webview: webView)
+        //loadHTML2(webview: webView)
         
     
     }
     
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //fatalError("init(coder:) has not been implemented")
@@ -98,16 +101,9 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         
     }
     
-    public func loadHTML2(webview : WKWebView){
-        
-        let paramURL = "https://www.20minutes.fr/arts-stars/television/2981275-20210222-marseillais-dubai-quand-ca-allait-tapais-poing-table-previent-jessica-aidi-bookeuse"
-        
-        let paramSRC = "pqvp3r"
-        let autoplay = "1"
-        
-        let paramMDTK = "01132356"
-        let paramZONE = "54"
-        let paramGDPRCONSENTSTRING = "BOj8iv4Oj8iwYAHABAlxCS-AAAAnF7_______9______9uz_Ov_v_f__33e87_9v_l_7_-___u_-3zd4-_1vf99yfm1-7etr3tp_87ues2_Xur__59__3z3_9phPrsk89r633A"
+    
+    
+    public func loadHTMLDigiteka(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
         let myURL = URL(string:"https://www.20minutes.fr/")
         
@@ -163,6 +159,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         webview.loadHTMLString(html, baseURL: myURL)
         
     }
+
     
 }
 extension WKWebView {
@@ -171,5 +168,6 @@ extension WKWebView {
             print(error.debugDescription)
         })
     }
+
 
 }
