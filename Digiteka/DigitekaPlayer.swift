@@ -12,6 +12,8 @@ import JavaScriptCore
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
+    //private var contentView : DigitekaPlayer?
+    private var vtop : DigitekaTopView?
     public var _position : String?
 
 
@@ -42,7 +44,8 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.preferences.javaScriptEnabled = true
         webView.translatesAutoresizingMaskIntoConstraints = false
-        self.webView.navigationDelegate = self
+        //self.webView.navigationDelegate = self
+        self.webView.navigationDelegate = self as? WKNavigationDelegate
         self.webView.scrollView.frame = self.webView.frame
         self.webView.scrollView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         self.webView.scrollView.delegate = self
@@ -56,9 +59,17 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
 
         loadHTMLDigiteka(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
         
-    
-      
     }
+    
+    public func setCf(v : UIView?){
+           vtop = DigitekaTopView(frame: .zero)
+           vtop?.heightConstraint.constant = 200
+           vtop?.layoutIfNeeded()
+           vtop?.webViewContent.addSubview(webView)
+           v?.addSubview(vtop ?? UIView())
+           
+       }
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
         case "error":
@@ -127,10 +138,10 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
    private func removeViewExisting() {
        
-        if contentView != nil {
+        /*if contentView != nil {
             contentView?.removeFromSuperview()
             contentView = nil
-        }
+        }*/
     }
     deinit{
             webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.loading))
@@ -155,7 +166,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
 }
 
 
-extension DigitekaPlayer : WKNavigationDelegate {
+/*extension DigitekaPlayer : WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void){
           if navigationAction.targetFrame == nil {
@@ -250,6 +261,6 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         }
 
     }
-}
+}*/
 
 

@@ -11,9 +11,14 @@ import WebKit
 
 open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
     private var webView : WKWebView!
+   private var vtop : DigitekaTopView?
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
+        
+        print ("todo init")
+        
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
         let config = WKWebViewConfiguration()
@@ -34,7 +39,12 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
         webView.backgroundColor = .black
         webView.contentMode = .scaleToFill
         webView.allowsBackForwardNavigationGestures = true
+        
+        
+        
         webView.callJS(scriptString)
+        
+        
         self.addSubview(webView)
 
         loadHTML2(webview: webView)
@@ -44,7 +54,8 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
     
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        //fatalError("init(coder:) has not been implemented")
     }
    public func centerView(_ views: [UIView], pointX: CGFloat) {
         for view in views {
@@ -69,12 +80,22 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate {
 //                self.removeFromSuperview()
 //            }
 //        }
+
     
         self.center.y+=y
         if shouldRemove {
             self.removeFromSuperview()
         }
     
+    }
+            
+    public func setCf(v : UIView?){
+        vtop = DigitekaTopView(frame: .zero)
+        vtop?.heightConstraint.constant = 200
+        vtop?.layoutIfNeeded()
+        vtop?.webViewContent.addSubview(webView)
+        v?.addSubview(vtop ?? UIView())
+        
     }
     
     public func loadHTML2(webview : WKWebView){
