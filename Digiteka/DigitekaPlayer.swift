@@ -330,48 +330,48 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        
 
-        if scrollView.contentOffset.y >= 80 {
-
-                hideDidScroll()
-                self.view.layoutIfNeeded()
-
-
-        }else if scrollView.contentOffset.y <= 200 {
-             
-            if __position == "top_left" {
-                self.viewDidAutoPlayTopAsLeft()
-                
-            }else if __position == "top_right" {
-                self.viewDidAutoPlayTopAsRightDidScroll()
-    
-            }else if __position == "bottom_left" {
-                self.viewDidAutoPlayBottomAsLeft()
-                
-            }
+        //print("scrollView.contentOffset.y = ",scrollView.contentOffset.y)
+                let viewY = playerPrincipal.frame.origin.y
+                let viewHeight = playerPrincipal.frame.height
+                let viewHalfHeight = viewHeight / 2
+                let digitekaHeight : CGFloat
+                digitekaHeight = viewY + viewHeight
+                let screenSize = UIScreen.main.bounds
+                //let screenWidth = screenSize.width
+                let screenHeight = screenSize.height
+                /*print("Valeur de Point de View principal = ",viewY!)
+                print("Valeur de Point de Height de View principal = ",viewHeight!)
+                print("Valeur de Point de Height de l'ecran = ",screenHeight)
+                print("Valeur de DIGITEKA = ",digitekaHeight)*/
             
-            
-            self.view.layoutIfNeeded()
+        //      CONDITION D'AFFICHAGE DU PLAYER PRINCIPAL
+                if ((((CGFloat(viewY) + viewHalfHeight) >= scrollView.contentOffset.y) && (digitekaHeight <= (screenHeight + scrollView.contentOffset.y)))
+                    || ((scrollView.contentOffset.y + screenHeight) >= (CGFloat(viewY) + viewHalfHeight)) && (CGFloat(viewY) >= scrollView.contentOffset.y)){ // View Principal 100%
+                        //print("VUE 100%")
+                        hideDidScroll()
+                        self.view.layoutIfNeeded()
 
-        }
-        
-        if scrollView.contentOffset.y >= 1100.0 {
-            
-            if __position == "top_left" {
-                self.viewDidAutoPlayTopAsLeft()
+          
+                }
+        //      CONDITION D'AFFICHAGE DU VISIBLE PLAYER
+                else if ((CGFloat(viewY) >= (screenHeight + scrollView.contentOffset.y)) || (digitekaHeight <= scrollView.contentOffset.y))  { // View Principal 0%
+                    
+                    //print("VUE 0%")
+                    if __position == "top_left" {
+                        self.viewDidAutoPlayTopAsLeft()
                         
-            }else if __position == "top_right" {
-                self.viewDidAutoPlayTopAsRightDidScroll()
+                    }else if __position == "top_right" {
+                        self.viewDidAutoPlayTopAsRightDidScroll()
             
-            }else if __position == "bottom_left" {
-                self.viewDidAutoPlayBottomAsLeft()
+                    }else if __position == "bottom_left" {
+                        self.viewDidAutoPlayBottomAsLeft()
                         
-            }
-            
-            self.view.layoutIfNeeded()
-            
-        }
+                    }
+                    
+                    self.view.layoutIfNeeded()
+
+                }
 
     }
 }
