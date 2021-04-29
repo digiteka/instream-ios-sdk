@@ -34,7 +34,10 @@ class WebviewPlayer{
     
     func loadHTMLDigiteka(){
         
-        let myURL = URL(string:"https://www.20minutes.fr/")
+        let strURL = URL(string: _paramURL)
+        
+        let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
+
         
         let html = "<html>\n" +
             "<head>\n" +

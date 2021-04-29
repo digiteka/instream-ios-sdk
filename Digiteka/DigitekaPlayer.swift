@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import JavaScriptCore
 
+
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var Player : WebviewPlayer!
@@ -38,7 +39,9 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
       
     }
     
-    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
+    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,margeH : Int ,margeV :Int, dimension : Int ){
+        
+        print ("debut ")
         
         __position = position
         playerPrincipal = _view
@@ -54,18 +57,23 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.removeViewExisting()
         if position == "top_left"  {
             scriptString = "controll('play');"
-            player = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
+            //player = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
+            player = UIView(frame: CGRect(x: margeH, y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
             
             
         }else if position == "top_right" {
             scriptString = "controll('play');"
-            player = UIView(frame: CGRect(x: self.view.frame.width-220, y: 90 , width: 200  ,height: 150))
-            
+            //player = UIView(frame: CGRect(x: self.view.frame.width-220, y: 90 , width: 200  ,height: 150))
+            let xx = self.view.frame.width
+        
+            player = UIView(frame: CGRect(x: Int(CGFloat(xx)-CGFloat(setWidth(value: dimension)+margeH)), y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
+        
             
             
         }else if position == "bottom_left" {
             scriptString = " "
-            player = UIView(frame: CGRect(x: 20,y: self.view.frame.size.height  - 180,width: 200,height: 150))
+            let yy = self.view.frame.size.height
+            player = UIView(frame: CGRect(x: margeH,y:   Int(CGFloat(yy)-CGFloat(180)),width: setWidth(value: dimension),height: setHeight(value: dimension)))
             
             
         }
@@ -101,6 +109,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.contentMode = .scaleToFill
         self.webView.callJS(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
+        //webView.backgroundColor = UIColor.black
         
         //webView.frame.size.width = _view.frame.size.width
         
@@ -111,6 +120,8 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
     
         
+        //let webViewPlayer = WKWebView(frame : _view.bounds , co nfiguration: config)
+        
         //let webViewPlayer = WKWebView(frame : _view.bounds , configuration: config)
         
         Player = WebviewPlayer(webview: webView,/*visiblePlayer : webViewPlayer,*/paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
@@ -120,10 +131,39 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
         
         Addclose(v: player)
+        
+        print ("fin")
     
     
     }
     
+    public func setWidth(value : Int) -> Int {
+        
+        var long : Int!
+        
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        
+        long = Int((value*Int(screenWidth))/100)
+        
+        return long
+        
+    }
+    
+    public func setHeight(value : Int) -> Int{
+        
+        var larg : Int!
+        
+        let screenSize = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        
+        larg = Int((value*Int(screenHeight))/100)
+        
+        return larg/2
+        
+    }
+    
+
     public func Addclose(v : UIView){
         
         let lb = UILabel(frame: CGRect(x: v.frame.width-25, y: 10, width: 25, height: 25))
@@ -156,6 +196,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
             assertionFailure("Received invalid message: \(message.name)")
         }
     }
+
     
    private func removeViewExisting() {
     
@@ -164,6 +205,10 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
             contentView = nil
         }*/
     
+
+     player?.isHidden = true
+    
+        
 
      player?.isHidden = true
     
@@ -225,6 +270,7 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
             player.isHidden = false
             webView.frame.size.width = player.frame.size.width
             webView.frame.size.height = player.frame.size.height
+            //webView.backgroundColor = UIColor.black
             player.addSubview(webView)
             self.view.addSubview(player)
             Addclose(v: player)
