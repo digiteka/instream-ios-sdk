@@ -92,14 +92,14 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
     
     }
             
-    public func setCf(v : UIView?){
+    /*public func setCf(v : UIView?){
         vtop = DigitekaTopView(frame: .zero)
         vtop?.heightConstraint.constant = 200
         vtop?.layoutIfNeeded()
         vtop?.webViewContent.addSubview(webView)
         v?.addSubview(vtop ?? UIView())
         
-    }
+    }*/
     
     
     

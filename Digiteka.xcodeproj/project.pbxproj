@@ -11,6 +11,7 @@
 		3B3645542625CAAC00EF8332 /* DigitekaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3645532625CAAC00EF8332 /* DigitekaTests.swift */; };
 		3B3645562625CAAC00EF8332 /* Digiteka.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B3645482625CAAC00EF8332 /* Digiteka.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B3645602625CAE400EF8332 /* DigitekaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B36455F2625CAE400EF8332 /* DigitekaPlayer.swift */; };
+		3B632F07263997F40026369B /* WebviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B632F06263997F40026369B /* WebviewPlayer.swift */; };
 		3BA331E82630121400405F70 /* DigitekaTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA331E72630121400405F70 /* DigitekaTopView.swift */; };
 		3BA331EB2630125100405F70 /* DigitekaTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA331EA2630125100405F70 /* DigitekaTopView.xib */; };
 		A07710D426275B6700AAE3CF /* WebViewHelpersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07710D326275B6700AAE3CF /* WebViewHelpersDelegate.swift */; };
@@ -36,6 +37,7 @@
 		3B3645532625CAAC00EF8332 /* DigitekaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaTests.swift; sourceTree = "<group>"; };
 		3B3645552625CAAC00EF8332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B36455F2625CAE400EF8332 /* DigitekaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaPlayer.swift; sourceTree = "<group>"; };
+		3B632F06263997F40026369B /* WebviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewPlayer.swift; sourceTree = "<group>"; };
 		3BA331E72630121400405F70 /* DigitekaTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaTopView.swift; sourceTree = "<group>"; };
 		3BA331EA2630125100405F70 /* DigitekaTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DigitekaTopView.xib; sourceTree = "<group>"; };
 		A07710D326275B6700AAE3CF /* WebViewHelpersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHelpersDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				A07710D926275E2200AAE3CF /* DigitekaView.swift */,
 				A07710F52627602900AAE3CF /* DigitekaLoadableView.swift */,
 				3BA331E72630121400405F70 /* DigitekaTopView.swift */,
+				3B632F06263997F40026369B /* WebviewPlayer.swift */,
 			);
 			path = Digiteka;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				3B3645602625CAE400EF8332 /* DigitekaPlayer.swift in Sources */,
 				A07710DA26275E2200AAE3CF /* DigitekaView.swift in Sources */,
 				A07710F62627602900AAE3CF /* DigitekaLoadableView.swift in Sources */,
+				3B632F07263997F40026369B /* WebviewPlayer.swift in Sources */,
 				A07710D426275B6700AAE3CF /* WebViewHelpersDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
