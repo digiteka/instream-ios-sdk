@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import JavaScriptCore
 
+
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     private var webView : WKWebView!
     private var contentView : DigitekaView?
@@ -160,9 +161,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
     }
     
-    
 
-    
     public func Addclose(v : UIView){
         
         let lb = UILabel(frame: CGRect(x: v.frame.width-25, y: 10, width: 25, height: 25))
@@ -197,8 +196,12 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     }
     public func loadHTMLDigiteka(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String){
         
-        let myURL = URL(string:"https://www.20minutes.fr/")
+    
+        let strURL = URL(string: paramURL)
         
+        let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
+        
+    
         let html = "<html>\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
