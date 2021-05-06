@@ -10,7 +10,10 @@ import UIKit
 import WebKit
 import JavaScriptCore
 
-class WebviewPlayer{
+class WebviewPlayer {
+    
+    
+    let contentController = WKUserContentController()
     public var _webview : WKWebView!
     var _paramURL:String
     var _paramSRC:String
@@ -18,8 +21,10 @@ class WebviewPlayer{
     var _paramZONE:String
     var _paramGDPRCONSENTSTRING:String
     var _autoplay:String
+    var _test:Bool?
+    var _config :WKWebViewConfiguration!
     
-    init(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String) {
+    init(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,config : WKWebViewConfiguration!) {
         self._webview = webview
         self._paramURL = paramURL
         self._paramSRC = paramSRC
@@ -27,9 +32,9 @@ class WebviewPlayer{
         self._paramZONE = paramZONE
         self._paramGDPRCONSENTSTRING = paramGDPRCONSENTSTRING
         self._autoplay = autoplay
-        
+        self._config = config
+    
         loadHTMLDigiteka()
-        
     }
     
     func loadHTMLDigiteka(){
@@ -37,9 +42,13 @@ class WebviewPlayer{
         let strURL = URL(string: _paramURL)
         
         let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
-
         
-        let html = "<html>\n" +
+//        let configuration = WKWebViewConfiguration()
+//        configuration.userContentController = contentController
+//        self._webview = WKWebView(frame : _webview.bounds, configuration: configuration)
+//        
+        let html = "<!DOCTYPE html>\n" +
+             "<html lang=\"en\">\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
@@ -64,7 +73,7 @@ class WebviewPlayer{
             "    <iframe id=\"frame\"\n" +
             "        frameborder=\"0\"\n" +
             "        scrolling='no' marginwidth='0' marginheight='0' hspace='0' vspace='0' allowfullscreen='true' allow='autoplay'" +
-            "        src='https://www.ultimedia.com/deliver/generic/iframe/mdtk/"+_paramMDTK+"/src/"+_paramSRC+"/zone/1/showtitle/"+_paramZONE+"/gdprconsentstring/"+_paramGDPRCONSENTSTRING+"?urlfacebook="+_paramURL+"&tagparamdecoded=video_app&sa=D&ust=1586938702508000&usg=AOvVaw0EoSE28fXl4HfVg-fQrA4n'>" +
+            "        src='https://www.ultimedia.com/deliver/generic/iframe/mdtk/"+_paramMDTK+"/src/"+_paramSRC+"/zone/"+_paramZONE+"/showtitle/1/gdprconsentstring/"+_paramGDPRCONSENTSTRING+"?urlfacebook="+_paramURL+"&tagparamdecoded=video_app&sa=D&ust=1586938702508000&usg=AOvVaw0EoSE28fXl4HfVg-fQrA4n'>" +
             "    </iframe>\n" +
             "\n" +
             "<script type=\"text/javascript\" >" +
@@ -73,27 +82,52 @@ class WebviewPlayer{
             "  console.log(\"je suis dans la fonction 'controll' \");\n" +
             "  return controll" +
             "}" +
-            "if ("+_autoplay+" !== 1) {" +
-            "window.onload = function() {\n" +
-            "      controll('pause');\n" +
-            "      console.log(\"function pause() called\");\n" +
+            
+            "function setStatusVideoPlay(status) {\n" +
+            "  window.webkit.messageHandlers.eventHandler.postMessage(status);\n" +
             "}\n" +
+            
+            "if ("+_autoplay+" === 1) {" +
+                "window.onload = function() {\n" +
+                "      controll('play');\n" +
+                "      console.log(\"function play() called\");\n" +
+                "}\n" +
             "}" +
-            "else {Android.setStatusVideoPlay(true);}" +
             "window.addEventListener(\"message\", function (message) { \n" +
-            "       if(message.data=='event=played')Android.setStatusVideoPlay(true);\n" +
-            "       if(message.data=='event=paused')Android.setStatusVideoPlay(false);\n" +
+            "       if(message.data=='event=played'){setStatusVideoPlay(true)};\n" +
+            "       if(message.data=='event=paused'){setStatusVideoPlay(false)};\n" +
             " }, false);\n" +
             "</script>\n" +
             "</body>\n" +
         "</html>"
         
+//        print(html)
+        
         _webview.loadHTMLString(html, baseURL: myURL)
         //visiblePlayer.loadHTMLString(html, baseURL:myURL)
-        
+       
         print("autoplay = ",_autoplay)
         
     }
     
-   
+    
+    public func changeControll(boolean : Bool){
+        self._test=boolean
+        if self._test! {
+            //_webview.callJavascript("controll('play')")
+            _webview.callJavascript("controll('play');")
+
+        }
+    }
+    
 }
+
+extension WKWebView {
+    func callJavascript(_ scriptString : String) {
+         print("Appel fonction Javascript")
+        self.evaluateJavaScript(scriptString, completionHandler: { (object, error) in
+            print(error.debugDescription)
+        })
+    }
+}
+

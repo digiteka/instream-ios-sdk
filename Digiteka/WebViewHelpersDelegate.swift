@@ -11,8 +11,9 @@ import UIKit
 
 public protocol WebViewHelpersDelegate {
     func viewDidAutoPlayTopAsLeft()
-    func viewDidAutoPlayTopAsRightDidScroll()
+    func viewDidAutoPlayTopAsRight()
     func viewDidAutoPlayBottomAsLeft()
+    func viewDidAutoPlayBottomAsRight()
     func hideDidScroll()
     func onScrollTopLeft(_ isHashShow : Bool, _ contentOffset: CGPoint)
     func onScrollTopRight(_ isHashShow : Bool, _ contentOffset: CGPoint)

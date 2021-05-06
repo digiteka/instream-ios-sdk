@@ -24,7 +24,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
         
-        let scriptString = "controll('play');"
+        let scriptString = "onPlayVideo();"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
         config.preferences = preferences
@@ -44,7 +44,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
         
         
         
-        webView.callJS(scriptString)
+        //webView.callJS(scriptString)
         
         webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
         
@@ -162,12 +162,11 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
 
     
 }
-extension WKWebView {
+/*extension WKWebView {
     func callJS(_ scriptString : String) {
         self.evaluateJavaScript(scriptString, completionHandler: { (object, error) in
             print(error.debugDescription)
         })
     }
 
-
-}
+}*/
