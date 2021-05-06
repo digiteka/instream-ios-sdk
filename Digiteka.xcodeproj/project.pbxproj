@@ -13,7 +13,6 @@
 		3B3645602625CAE400EF8332 /* DigitekaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B36455F2625CAE400EF8332 /* DigitekaPlayer.swift */; };
 		3B632F07263997F40026369B /* WebviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B632F06263997F40026369B /* WebviewPlayer.swift */; };
 		3BA331E82630121400405F70 /* DigitekaTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA331E72630121400405F70 /* DigitekaTopView.swift */; };
-		3BA331EB2630125100405F70 /* DigitekaTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA331EA2630125100405F70 /* DigitekaTopView.xib */; };
 		A07710D426275B6700AAE3CF /* WebViewHelpersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07710D326275B6700AAE3CF /* WebViewHelpersDelegate.swift */; };
 		A07710DA26275E2200AAE3CF /* DigitekaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07710D926275E2200AAE3CF /* DigitekaView.swift */; };
 		A07710F62627602900AAE3CF /* DigitekaLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07710F52627602900AAE3CF /* DigitekaLoadableView.swift */; };
@@ -39,7 +38,6 @@
 		3B36455F2625CAE400EF8332 /* DigitekaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaPlayer.swift; sourceTree = "<group>"; };
 		3B632F06263997F40026369B /* WebviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewPlayer.swift; sourceTree = "<group>"; };
 		3BA331E72630121400405F70 /* DigitekaTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaTopView.swift; sourceTree = "<group>"; };
-		3BA331EA2630125100405F70 /* DigitekaTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DigitekaTopView.xib; sourceTree = "<group>"; };
 		A07710D326275B6700AAE3CF /* WebViewHelpersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHelpersDelegate.swift; sourceTree = "<group>"; };
 		A07710D926275E2200AAE3CF /* DigitekaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaView.swift; sourceTree = "<group>"; };
 		A07710F52627602900AAE3CF /* DigitekaLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitekaLoadableView.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 		3B3645472625CAAC00EF8332 /* Digiteka */ = {
 			isa = PBXGroup;
 			children = (
-				3BA331E92630121B00405F70 /* nib */,
 				3B3645482625CAAC00EF8332 /* Digiteka.h */,
 				3B3645492625CAAC00EF8332 /* Info.plist */,
 				3B36455F2625CAE400EF8332 /* DigitekaPlayer.swift */,
@@ -105,14 +102,6 @@
 				3B3645552625CAAC00EF8332 /* Info.plist */,
 			);
 			path = DigitekaTests;
-			sourceTree = "<group>";
-		};
-		3BA331E92630121B00405F70 /* nib */ = {
-			isa = PBXGroup;
-			children = (
-				3BA331EA2630125100405F70 /* DigitekaTopView.xib */,
-			);
-			path = nib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +197,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BA331EB2630125100405F70 /* DigitekaTopView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +301,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -370,6 +359,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -399,7 +389,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -426,7 +416,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

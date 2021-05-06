@@ -11,8 +11,9 @@ import JavaScriptCore
 
 
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
+    
     private var webView : WKWebView!
-    private var Player : WebviewPlayer!
+    private var instance : WebviewPlayer!
     private var contentView : DigitekaView?
     public var _position : String?
     public var __autoplay : String?
@@ -44,7 +45,6 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
     public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,margeH : Int ,margeV :Int, dimension : Int ){
         
-        print ("debut ")
         
         __position = position
         playerPrincipal = _view
@@ -162,9 +162,6 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         //webView.callJavascript("controll('play');")
         Addclose(v: player)
         
-        print ("fin")
-    
-    
     }
     
     public func setWidth(value : Int) -> Int {
@@ -230,12 +227,6 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
    private func removeViewExisting() {
     
-        /*if contentView != nil {
-            contentView?.removeFromSuperview()
-            contentView = nil
-        }*/
-    
-
      player?.isHidden = true
     
     }
@@ -302,15 +293,12 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         self.removeViewExisting()
     }
     public func viewDidAutoPlayTopAsLeft() {
-        /*let frame = CGRect(x: 20, y: self.view.frame.height+90 , width: 200  ,height: 150)
-        self.loadView(frame)*/
         if closePlay == true {
             player.isHidden = true
         }else {
             player.isHidden = false
             webView.frame.size.width = player.frame.size.width
             webView.frame.size.height = player.frame.size.height
-            //webView.backgroundColor = UIColor.black
             player.addSubview(webView)
             self.view.addSubview(player)
             Addclose(v: player)
@@ -334,11 +322,7 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         }
     }
     public func viewDidAutoPlayBottomAsLeft() {
-        /*let frame = CGRect(x: 20,
-                           y: self.view.frame.size.height * 2 - 170,
-                           width: 200,
-                           height: 150)
-        self.loadView(frame)*/
+        
         if closePlay == true {
             player.isHidden = true
         }else {
@@ -367,21 +351,11 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         }
     }
     
-    public func onChangeScrollView(_ scrollView: UIScrollView) {
-        //Ato Via SDK manova visiblity
-    
-    }
-    public func onScrollTopLeft(_ isHashShow: Bool, _ contentOffset: CGPoint) {
-    }
-    public func onScrollBottomLeft(_ isHashShow: Bool, _ contentOffset: CGPoint) {
-        
-    }
-    public func onScrollTopRight(_ isHashShow: Bool, _ contentOffset: CGPoint) {
-        
-    }
-    
+
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        print ("Scroll ")
         
 
         //print("scrollView.contentOffset.y = ",scrollView.contentOffset.y)

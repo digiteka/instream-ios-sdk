@@ -15,8 +15,5 @@ public protocol WebViewHelpersDelegate {
     func viewDidAutoPlayBottomAsLeft()
     func viewDidAutoPlayBottomAsRight()
     func hideDidScroll()
-    func onScrollTopLeft(_ isHashShow : Bool, _ contentOffset: CGPoint)
-    func onScrollTopRight(_ isHashShow : Bool, _ contentOffset: CGPoint)
-    func onScrollBottomLeft(_ isHashShow : Bool, _ contentOffset: CGPoint)
-    func onChangeScrollView(_ scrollView : UIScrollView)
+    
 }
