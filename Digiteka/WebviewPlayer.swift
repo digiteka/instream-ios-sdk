@@ -10,7 +10,10 @@ import UIKit
 import WebKit
 import JavaScriptCore
 
-class WebviewPlayer{
+class WebviewPlayer {
+    
+    
+    let contentController = WKUserContentController()
     public var _webview : WKWebView!
     var _paramURL:String
     var _paramSRC:String
@@ -18,8 +21,10 @@ class WebviewPlayer{
     var _paramZONE:String
     var _paramGDPRCONSENTSTRING:String
     var _autoplay:String
+    var _test:Bool?
+    var _config :WKWebViewConfiguration!
     
-    init(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String) {
+    init(webview : WKWebView,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,config : WKWebViewConfiguration!) {
         self._webview = webview
         self._paramURL = paramURL
         self._paramSRC = paramSRC
@@ -27,9 +32,9 @@ class WebviewPlayer{
         self._paramZONE = paramZONE
         self._paramGDPRCONSENTSTRING = paramGDPRCONSENTSTRING
         self._autoplay = autoplay
-        
+        self._config = config
+    
         loadHTMLDigiteka()
-        
     }
     
     func loadHTMLDigiteka(){
@@ -37,10 +42,9 @@ class WebviewPlayer{
         let strURL = URL(string: _paramURL)
         
         let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
-
         
         let html = "<!DOCTYPE html>\n" +
-            "<html lang=\"en\">\n" +
+             "<html lang=\"en\">\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
@@ -75,30 +79,47 @@ class WebviewPlayer{
             "  console.log(\"je suis dans la fonction 'controll' \");\n" +
             "  return controll" +
             "}" +
-            "if ("+_autoplay+" !== \"1\") {" +
-                "window.onload = function() {\n" +
-                "      controll('pause');\n" +
-                "      console.log(\"function pause() called\");\n" +
-                "}\n" +
-            "}" +
-            "else {" +
+            "function setStatusVideoPlay(status) {\n" +
+            "  window.webkit.messageHandlers.eventHandler.postMessage(status);\n" +
+            "}\n" +
+            "if ("+_autoplay+" === 1) {" +
                 "window.onload = function() {\n" +
                 "      controll('play');\n" +
                 "      console.log(\"function play() called\");\n" +
                 "}\n" +
             "}" +
             "window.addEventListener(\"message\", function (message) { \n" +
-            "       if(message.data=='event=played') ;\n" +
-            "       if(message.data=='event=paused') ;\n" +
+            "       if(message.data=='event=played'){setStatusVideoPlay(true)};\n" +
+            "       if(message.data=='event=paused'){setStatusVideoPlay(false)};\n" +
+
             " }, false);\n" +
             "</script>\n" +
             "</body>\n" +
         "</html>"
-        
-        _webview.loadHTMLString(html, baseURL: myURL)
     
+        _webview.loadHTMLString(html, baseURL: myURL)
+
         
     }
     
-   
+    
+    public func changeControll(boolean : Bool){
+        self._test=boolean
+        if self._test! {
+            //_webview.callJavascript("controll('play')")
+            _webview.callJavascript("controll('play');")
+
+        }
+    }
+    
 }
+
+extension WKWebView {
+    func callJavascript(_ scriptString : String) {
+         print("Appel fonction Javascript")
+        self.evaluateJavaScript(scriptString, completionHandler: { (object, error) in
+            print(error.debugDescription)
+        })
+    }
+}
+

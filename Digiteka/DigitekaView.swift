@@ -24,7 +24,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
         
-        let scriptString = "controll('play');"
+        let scriptString = "onPlayVideo();"
         let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
             config.userContentController.addUserScript(script)
         config.preferences = preferences
