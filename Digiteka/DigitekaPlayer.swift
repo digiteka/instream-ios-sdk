@@ -42,9 +42,9 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
     public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,margeH : Int ,margeV :Int, dimension : Int ){
         
-        
         __position = position
         playerPrincipal = _view
+        
         
         let preferences = WKPreferences()
          preferences.javaScriptEnabled = true
@@ -57,13 +57,12 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.removeViewExisting()
         if position == "top_left"  {
             scriptString = "controll('play');"
-            //player = UIView(frame: CGRect(x: 20, y: 90 , width: 200  ,height: 150))
             player = UIView(frame: CGRect(x: margeH, y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
             
             
         }else if position == "top_right" {
             scriptString = "controll('play');"
-            //player = UIView(frame: CGRect(x: self.view.frame.width-220, y: 90 , width: 200  ,height: 150))
+            
             let xx = self.view.frame.width
         
             player = UIView(frame: CGRect(x: Int(CGFloat(xx)-CGFloat(setWidth(value: dimension)+margeH)), y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
@@ -74,28 +73,22 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
             scriptString = " "
             let yy = self.view.frame.size.height
             player = UIView(frame: CGRect(x: margeH,y:   Int(CGFloat(yy)-CGFloat(180)),width: setWidth(value: dimension),height: setHeight(value: dimension)))
-            
-            
+        
         }
         
         if autoplay == "1" { // AutoPlay
             self.webView = WKWebView(frame: player.bounds, configuration: config)
-            //webViewPlayer = WKWebView(frame : player.bounds , configuration: config)
+            
             
         }else if autoplay == "2" { // Scroll to play
             self.webView = WKWebView(frame: player.bounds, configuration: config)
-            //webViewPlayer = WKWebView(frame : player.bounds , configuration: config)
+            
             
         }else if autoplay == "0" { // Click to play
             
-            self.webView = WKWebView(frame: player.bounds/*, configuration: config*/)
-            //webViewPlayer = WKWebView(frame : player.bounds /*, configuration: config*/)
+            self.webView = WKWebView(frame: player.bounds)
             
         }
-        
-
-        let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
-        config.userContentController.addUserScript(script)
         
         
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -111,12 +104,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.allowsBackForwardNavigationGestures = true
         
 
-        //webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
-    
-        
+
         instance = WebviewPlayer(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING)
         
         player.addSubview(webView)
+        
         
         if autoplay != "2"{
             self.view.addSubview(player)
@@ -281,13 +273,12 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
         }
     }
     
-
+    
+    
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        print ("Scroll ")
-        
-
+    
         //print("scrollView.contentOffset.y = ",scrollView.contentOffset.y)
                 let viewY = playerPrincipal.frame.origin.y
                 let viewHeight = playerPrincipal.frame.height
@@ -311,7 +302,8 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
                         webView.frame.size.width = playerPrincipal.frame.size.width
                         webView.frame.size.height = playerPrincipal.frame.size.height
                         playerPrincipal.addSubview(webView)
-            
+                    
+                    
                         self.view.layoutIfNeeded()
 
           
@@ -337,5 +329,16 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
 
     }
 }
+
+extension WKWebView {
+    func callJS(_ scriptString : String) {
+        self.evaluateJavaScript(scriptString, completionHandler: { (object, error) in
+            print(error.debugDescription)
+           
+        })
+    }
+    
+}
+
 
 

@@ -44,7 +44,7 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
         
         
         
-        webView.callJS(scriptString)
+        //webView.callJS(scriptString)
         
         webView.load(URLRequest(url: URL(string: "https://www.youtube.com")!))
         
@@ -161,13 +161,4 @@ open class DigitekaView: UIView, WKNavigationDelegate, UIScrollViewDelegate  {
     }
 
     
-}
-extension WKWebView {
-    func callJS(_ scriptString : String) {
-        self.evaluateJavaScript(scriptString, completionHandler: { (object, error) in
-            print(error.debugDescription)
-        })
-    }
-
-
 }

@@ -39,7 +39,8 @@ class WebviewPlayer{
         let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
 
         
-        let html = "<html>\n" +
+        let html = "<!DOCTYPE html>\n" +
+            "<html lang=\"en\">\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
@@ -64,34 +65,38 @@ class WebviewPlayer{
             "    <iframe id=\"frame\"\n" +
             "        frameborder=\"0\"\n" +
             "        scrolling='no' marginwidth='0' marginheight='0' hspace='0' vspace='0' allowfullscreen='true' allow='autoplay'" +
-            "        src='https://www.ultimedia.com/deliver/generic/iframe/mdtk/"+_paramMDTK+"/src/"+_paramSRC+"/zone/1/showtitle/"+_paramZONE+"/gdprconsentstring/"+_paramGDPRCONSENTSTRING+"?urlfacebook="+_paramURL+"&tagparamdecoded=video_app&sa=D&ust=1586938702508000&usg=AOvVaw0EoSE28fXl4HfVg-fQrA4n'>" +
+            "        src='https://www.ultimedia.com/deliver/generic/iframe/mdtk/"+_paramMDTK+"/src/"+_paramSRC+"/zone/"+_paramZONE+"/showtitle/1/gdprconsentstring/"+_paramGDPRCONSENTSTRING+"?urlfacebook="+_paramURL+"&tagparamdecoded=video_app&sa=D&ust=1586938702508000&usg=AOvVaw0EoSE28fXl4HfVg-fQrA4n'>" +
             "    </iframe>\n" +
             "\n" +
-            "<script type=\"text/javascript\" >" +
+            "<script type=\"text/javascript\">" +
+            "console.log(\"je suis dans la fonction 'controll' \");" +
             "function controll(p){\n" +
             "  var controll = document.getElementById(\"frame\").contentWindow.postMessage(p,\"*\") ;\n" +
             "  console.log(\"je suis dans la fonction 'controll' \");\n" +
             "  return controll" +
             "}" +
-            "if ("+_autoplay+" !== 1) {" +
-            "window.onload = function() {\n" +
-            "      controll('pause');\n" +
-            "      console.log(\"function pause() called\");\n" +
-            "}\n" +
+            "if ("+_autoplay+" !== \"1\") {" +
+                "window.onload = function() {\n" +
+                "      controll('pause');\n" +
+                "      console.log(\"function pause() called\");\n" +
+                "}\n" +
             "}" +
-            "else {Android.setStatusVideoPlay(true);}" +
+            "else {" +
+                "window.onload = function() {\n" +
+                "      controll('play');\n" +
+                "      console.log(\"function play() called\");\n" +
+                "}\n" +
+            "}" +
             "window.addEventListener(\"message\", function (message) { \n" +
-            "       if(message.data=='event=played')Android.setStatusVideoPlay(true);\n" +
-            "       if(message.data=='event=paused')Android.setStatusVideoPlay(false);\n" +
+            "       if(message.data=='event=played') ;\n" +
+            "       if(message.data=='event=paused') ;\n" +
             " }, false);\n" +
             "</script>\n" +
             "</body>\n" +
         "</html>"
         
         _webview.loadHTMLString(html, baseURL: myURL)
-        //visiblePlayer.loadHTMLString(html, baseURL:myURL)
-        
-        print("autoplay = ",_autoplay)
+    
         
     }
     
