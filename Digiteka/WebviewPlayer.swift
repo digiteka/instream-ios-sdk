@@ -41,6 +41,7 @@ class WebviewPlayer {
         
         let strURL = URL(string: _paramURL)
         
+        //BaseURL
         let myURL = URL(string: (strURL?.scheme)!+"://"+(strURL?.host)!+"/")
         
         let html = "<!DOCTYPE html>\n" +
@@ -106,7 +107,6 @@ class WebviewPlayer {
     public func changeControll(boolean : Bool){
         self._test=boolean
         if self._test! {
-            //_webview.callJavascript("controll('play')")
             _webview.callJavascript("controll('play');")
 
         }

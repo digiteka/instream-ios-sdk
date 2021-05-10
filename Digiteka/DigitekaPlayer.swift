@@ -65,10 +65,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         contentController.addUserScript(userScript)
         contentController.add(self, name: "eventHandler")
         config.userContentController = contentController
-//        let script = WKUserScript(source: scriptString, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
-//        config.userContentController.addUserScript(script)
-        //config.preferences = preferences
-        
+
         if position == "top_left"  {
 
             player = UIView(frame: CGRect(x: margeH, y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
@@ -110,8 +107,6 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
             
         }
         
-
-
         
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         webView.configuration.preferences.javaScriptEnabled = true
@@ -124,12 +119,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         self.webView.contentMode = .scaleToFill
        // self.webView.callJavascript(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
-        //webView.backgroundColor = UIColor.black
         
-
-
-
-
         
         Player = WebviewPlayer(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING, config: config)
 
