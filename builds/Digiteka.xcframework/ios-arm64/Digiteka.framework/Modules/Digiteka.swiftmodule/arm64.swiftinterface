@@ -1,0 +1,65 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 effective-4.1.50 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 4 -enforce-exclusivity=checked -O -module-name Digiteka
+@_exported import Digiteka
+import Foundation
+import JavaScriptCore
+import Swift
+import UIKit
+import WebKit
+@objc @_inheritsConvenienceInitializers open class DigitekaPlayer : UIKit.UIViewController, UIKit.UIScrollViewDelegate {
+  public var _position: Swift.String?
+  public var __autoplay: Swift.String?
+  public var count: Swift.Int
+  public var data: Swift.Int?
+  public var scriptString: Swift.String!
+  public var player: UIKit.UIView!
+  public var __position: Swift.String?
+  public var playerPrincipal: UIKit.UIView!
+  public var closePlay: Swift.Bool?
+  @objc override dynamic open func viewDidLoad()
+  public func affiche_webview(_view: UIKit.UIView, position: Swift.String?, paramURL: Swift.String, paramSRC: Swift.String, autoplay: Swift.String, paramMDTK: Swift.String, paramZONE: Swift.String, paramGDPRCONSENTSTRING: Swift.String, margeH: Swift.Int, margeV: Swift.Int, dimension: Swift.Int)
+  public func setWidth(value: Swift.Int) -> Swift.Int
+  public func setHeight(value: Swift.Int) -> Swift.Int
+  public func Height(view: UIKit.UIView, value: Swift.Int) -> Swift.Int
+  public func Addclose(v: UIKit.UIView)
+  @objc deinit
+  @objc override dynamic open func loadView()
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+extension DigitekaPlayer : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  public func webView(_ webView: WebKit.WKWebView, runJavaScriptAlertPanelWithMessage message: Swift.String, initiatedByFrame frame: WebKit.WKFrameInfo, completionHandler: @escaping () -> Swift.Void)
+}
+extension DigitekaPlayer : WebKit.WKScriptMessageHandler {
+  @objc dynamic public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+}
+extension DigitekaPlayer : Digiteka.WebViewHelpersDelegate {
+  public func hideDidScroll()
+  public func viewDidAutoPlayTopAsLeft()
+  public func viewDidAutoPlayTopAsRight()
+  public func viewDidAutoPlayBottomAsLeft()
+  public func viewDidAutoPlayBottomAsRight()
+  @objc dynamic public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class DigitekaView : UIKit.UIView, WebKit.WKNavigationDelegate, UIKit.UIScrollViewDelegate {
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  public func centerView(_ views: [UIKit.UIView], pointX: CoreGraphics.CGFloat)
+  public func animateWithSpring(_ pointX: CoreGraphics.CGFloat, _ delay: Foundation.TimeInterval)
+  public func moveViews(y: CoreGraphics.CGFloat, _ shouldRemove: Swift.Bool)
+  public func loadHTMLDigiteka(webview: WebKit.WKWebView, paramURL: Swift.String, paramSRC: Swift.String, autoplay: Swift.String, paramMDTK: Swift.String, paramZONE: Swift.String, paramGDPRCONSENTSTRING: Swift.String)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class DigitekaLoadableView : UIKit.UIView {
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  public func loadView() -> UIKit.UIView
+  @objc deinit
+}
+public protocol WebViewHelpersDelegate {
+  func viewDidAutoPlayTopAsLeft()
+  func viewDidAutoPlayTopAsRight()
+  func viewDidAutoPlayBottomAsLeft()
+  func viewDidAutoPlayBottomAsRight()
+  func hideDidScroll()
+}
