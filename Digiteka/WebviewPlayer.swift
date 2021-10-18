@@ -35,6 +35,8 @@ class WebviewPlayer {
         self._config = config
     
         loadHTMLDigiteka()
+        
+        print("Init webview")
     }
     
     func loadHTMLDigiteka(){

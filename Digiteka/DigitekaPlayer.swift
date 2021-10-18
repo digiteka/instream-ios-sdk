@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 import JavaScriptCore
-
+                          
 
 open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     
@@ -20,11 +20,11 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
     public var count = 0
     public var data : Int?
     private var webViewPlayer : WKWebView!
+    var viewHeight : CGFloat!
     
     //Script
     public var scriptString : String!
 
-    
     //Visible Player
     public var player : UIView!
     
@@ -43,20 +43,19 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
       
     }
     
-    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,margeH : Int ,margeV :Int, dimension : Int ){
+    public func affiche_webview(_view : UIView,position:String?,paramURL:String , paramSRC:String,autoplay:String,paramMDTK:String,paramZONE:String,paramGDPRCONSENTSTRING:String,showPlayer : Bool,margeH : Int = 0 ,margeV :Int = 0, dimension : Int = 0 ){
+        
+        print("Call Affiche ")
         
         __position = position
         playerPrincipal = _view
         __autoplay = autoplay
         
-
         config.allowsInlineMediaPlayback = true
-        //config.preferences = preferences
-
-        //Config Player
+        
         self.removeViewExisting()
         
-        //let scriptString = "control('play');"
+        
         let userScript = WKUserScript(
             source: "control('play')",
             injectionTime: .atDocumentEnd,
@@ -65,41 +64,45 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         contentController.addUserScript(userScript)
         contentController.add(self, name: "eventHandler")
         config.userContentController = contentController
+        
+        // Show or Hide Visible PLayer
+        if showPlayer == false{
+            closePlay = true
+        }
 
         if position == "top_left"  {
 
-            player = UIView(frame: CGRect(x: margeH, y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
-            
+            // New Instance for VP
+            player = UIView(frame: CGRect(x: margeH, y: 80+margeV , width: setWidth(value: dimension) ,height: Height(view: playerPrincipal, value: dimension)))
+                        
             
         }else if position == "top_right" {
 
             let xx = self.view.frame.width
         
-            player = UIView(frame: CGRect(x: Int(CGFloat(xx)-CGFloat(setWidth(value: dimension)+margeH)), y: 80+margeV , width: setWidth(value: dimension) ,height: setHeight(value: dimension)))
+            player = UIView(frame: CGRect(x: Int(CGFloat(xx)-CGFloat(setWidth(value: dimension)+margeH)), y: 80+margeV , width: setWidth(value: dimension) ,height: Height(view: playerPrincipal, value: dimension)))
         
             
         }else if position == "bottom_left" {
             //scriptString = " "
             let yy = self.view.frame.size.height
-            player = UIView(frame: CGRect(x: margeH,y:   Int(CGFloat(yy)-CGFloat(180)),width: setWidth(value: dimension),height: setHeight(value: dimension)))
+            player = UIView(frame: CGRect(x: margeH,y:   Int(CGFloat(yy)-CGFloat(180)),width: setWidth(value: dimension),height: Height(view: playerPrincipal, value: dimension)))
 
             
         }else if position == "bottom_right" {
             //scriptString = " "
             let zz = self.view.frame.size.width
-            player = UIView(frame: CGRect(x: Int(CGFloat(zz)-CGFloat(setWidth(value: dimension)+margeH)),y:   Int(CGFloat(zz)-CGFloat(180)),width: setWidth(value: dimension),height: setHeight(value: dimension)))
+            player = UIView(frame: CGRect(x: Int(CGFloat(zz)-CGFloat(setWidth(value: dimension)+margeH)),y:   Int(CGFloat(zz)-CGFloat(180)),width: setWidth(value: dimension),height: Height(view: playerPrincipal, value: dimension)))
             
-
         }
         
         if autoplay == "1" { // AutoPlay
             self.webView = WKWebView(frame: player.bounds, configuration: config)
             
-            
+        
         }else if autoplay == "2" { // Scroll to play
             self.webView = WKWebView(frame: player.bounds, configuration: config)
 
-            
             
         }else if autoplay == "0" { // Click to play
             self.webView = WKWebView(frame: player.bounds, configuration: config)
@@ -120,22 +123,33 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
        // self.webView.callJavascript(scriptString)
         self.webView.allowsBackForwardNavigationGestures = true
         
-        
+        //Load HTML string
         Player = WebviewPlayer(webview: webView,paramURL : paramURL, paramSRC : paramSRC, autoplay : autoplay, paramMDTK : paramMDTK, paramZONE : paramZONE, paramGDPRCONSENTSTRING : paramGDPRCONSENTSTRING, config: config)
 
         
-    
         if __autoplay == "1"{
             
             self.view.addSubview(player)
+        
         }
         else {
+            
             playerPrincipal.addSubview(webView)
         }
         
+    
+        webView.frame.size.width = playerPrincipal.frame.size.width
+        webView.frame.size.height = playerPrincipal.frame.size.height
+        playerPrincipal.addSubview(webView)
+        //webView.frame.size = playerPrincipal.frame.size
+        
+        print("Width", playerPrincipal.frame.width)
+       
         Addclose(v: player)
         
     }
+    
+    
     
     public func setWidth(value : Int) -> Int {
         
@@ -163,6 +177,19 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         
     }
     
+    public func Height(view : UIView , value : Int) -> Int{
+        
+        
+        let h = setWidth(value: value)
+        let screenWidth = view.frame.width
+        let screenHeight = view.frame.height
+        let screenScale = UIScreen.main.scale
+        let ratio = (screenWidth * screenScale)/(screenHeight * screenScale)
+        let height = CGFloat(h)/ratio
+        
+        return Int(height)
+    }
+    
 
     public func Addclose(v : UIView){
         
@@ -171,6 +198,7 @@ open class DigitekaPlayer : UIViewController, UIScrollViewDelegate {
         lb.textColor = UIColor.white
         
         v.addSubview(lb)
+        //Action Bouton X Fermer sur VP
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePlayer))
         lb.isUserInteractionEnabled = true
         lb.addGestureRecognizer(tap)
@@ -329,10 +357,12 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        print("Call when  Scroll")
+        
     
         //print("scrollView.contentOffset.y = ",scrollView.contentOffset.y)
                 let viewY = playerPrincipal.frame.origin.y
-                let viewHeight = playerPrincipal.frame.height
+                viewHeight = playerPrincipal.frame.height
                 let viewHalfHeight = viewHeight / 2
                 let digitekaHeight : CGFloat
                 digitekaHeight = viewY + viewHeight
@@ -344,10 +374,12 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
                 print("Valeur de Point de Height de l'ecran = ",screenHeight)
                 print("Valeur de DIGITEKA = ",digitekaHeight)*/
             
+        
         //      CONDITION D'AFFICHAGE DU PLAYER PRINCIPAL
                 if ((((CGFloat(viewY) + viewHalfHeight) >= scrollView.contentOffset.y) && (digitekaHeight <= (screenHeight + scrollView.contentOffset.y)))
                     || ((scrollView.contentOffset.y + screenHeight) >= (CGFloat(viewY) + viewHalfHeight)) && (CGFloat(viewY) >= scrollView.contentOffset.y)){ // View Principal 100%
                         //print("VUE 100%")
+                        print("Call when  Scroll")
                         hideDidScroll()
                         
                         webView.frame.size.width = playerPrincipal.frame.size.width
@@ -377,7 +409,6 @@ extension DigitekaPlayer : WebViewHelpersDelegate {
             
                         self.view.layoutIfNeeded()
 
-          
                 }
         //      CONDITION D'AFFICHAGE DU VISIBLE PLAYER
                 else if ((CGFloat(viewY) >= (screenHeight + scrollView.contentOffset.y)) || (digitekaHeight <= scrollView.contentOffset.y))  { // View Principal 0%
