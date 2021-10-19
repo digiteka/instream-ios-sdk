@@ -6,12 +6,17 @@
 	<array>
 		<dict>
 			<key>LibraryIdentifier</key>
+<<<<<<< HEAD
 			<string>ios-arm64_x86_64-simulator</string>
+=======
+			<string>ios-arm64</string>
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			<key>LibraryPath</key>
 			<string>Digiteka.framework</string>
 			<key>SupportedArchitectures</key>
 			<array>
 				<string>arm64</string>
+<<<<<<< HEAD
 				<string>x86_64</string>
 			</array>
 			<key>SupportedPlatform</key>
@@ -22,14 +27,32 @@
 		<dict>
 			<key>LibraryIdentifier</key>
 			<string>ios-arm64</string>
+=======
+			</array>
+			<key>SupportedPlatform</key>
+			<string>ios</string>
+		</dict>
+		<dict>
+			<key>LibraryIdentifier</key>
+			<string>ios-arm64_x86_64-simulator</string>
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			<key>LibraryPath</key>
 			<string>Digiteka.framework</string>
 			<key>SupportedArchitectures</key>
 			<array>
 				<string>arm64</string>
+<<<<<<< HEAD
 			</array>
 			<key>SupportedPlatform</key>
 			<string>ios</string>
+=======
+				<string>x86_64</string>
+			</array>
+			<key>SupportedPlatform</key>
+			<string>ios</string>
+			<key>SupportedPlatformVariant</key>
+			<string>simulator</string>
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 		</dict>
 	</array>
 	<key>CFBundlePackageType</key>

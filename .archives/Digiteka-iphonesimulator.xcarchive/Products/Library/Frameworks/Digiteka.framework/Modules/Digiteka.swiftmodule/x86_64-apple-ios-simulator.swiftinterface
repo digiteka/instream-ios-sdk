@@ -18,7 +18,11 @@ import WebKit
   public var playerPrincipal: UIKit.UIView!
   public var closePlay: Swift.Bool?
   @objc override dynamic open func viewDidLoad()
+<<<<<<< HEAD
   public func affiche_webview(_view: UIKit.UIView, position: Swift.String?, paramURL: Swift.String, paramSRC: Swift.String, autoplay: Swift.String, paramMDTK: Swift.String, paramZONE: Swift.String, paramGDPRCONSENTSTRING: Swift.String, showPlayer: Swift.Bool, margeH: Swift.Int = 0, margeV: Swift.Int = 0, dimension: Swift.Int = 0)
+=======
+  public func affiche_webview(_view: UIKit.UIView, position: Swift.String?, paramURL: Swift.String, paramSRC: Swift.String, autoplay: Swift.String, paramMDTK: Swift.String, paramZONE: Swift.String, paramGDPRCONSENTSTRING: Swift.String, margeH: Swift.Int, margeV: Swift.Int, dimension: Swift.Int)
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
   public func setWidth(value: Swift.Int) -> Swift.Int
   public func setHeight(value: Swift.Int) -> Swift.Int
   public func Height(view: UIKit.UIView, value: Swift.Int) -> Swift.Int

@@ -22,11 +22,19 @@
 		</data>
 		<key>Modules/Digiteka.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
+<<<<<<< HEAD
 		KV0o2vCr35Bc1ZwPFF3uvyUOz80=
 		</data>
 		<key>Modules/Digiteka.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
 		sz/Rq5hkA3gQMVViL94G6aUYb4M=
+=======
+		8mgxp1RqACgszwCa53MmXJlMTag=
+		</data>
+		<key>Modules/Digiteka.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
+		<data>
+		Hlmbq89mWi5GZsjOQv0kG6fiYGY=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 		</data>
 		<key>Modules/Digiteka.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -34,11 +42,19 @@
 		</data>
 		<key>Modules/Digiteka.swiftmodule/arm64.swiftinterface</key>
 		<data>
+<<<<<<< HEAD
 		KV0o2vCr35Bc1ZwPFF3uvyUOz80=
 		</data>
 		<key>Modules/Digiteka.swiftmodule/arm64.swiftmodule</key>
 		<data>
 		sz/Rq5hkA3gQMVViL94G6aUYb4M=
+=======
+		8mgxp1RqACgszwCa53MmXJlMTag=
+		</data>
+		<key>Modules/Digiteka.swiftmodule/arm64.swiftmodule</key>
+		<data>
+		Hlmbq89mWi5GZsjOQv0kG6fiYGY=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -46,11 +62,19 @@
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
+<<<<<<< HEAD
 		tSstYzF8u3o8IZt9ASTpEFeTzoE=
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
 		S1v+wN41hI3WWlJhY3VCeA7GmWE=
+=======
+		Jf1XYTSXn6l0/kSIdjppcUXGkbY=
+		</data>
+		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
+		<data>
+		wYgexhflvRDxl4JGrvIV+0PwP48=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -58,11 +82,19 @@
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64.swiftinterface</key>
 		<data>
+<<<<<<< HEAD
 		tSstYzF8u3o8IZt9ASTpEFeTzoE=
 		</data>
 		<key>Modules/Digiteka.swiftmodule/x86_64.swiftmodule</key>
 		<data>
 		S1v+wN41hI3WWlJhY3VCeA7GmWE=
+=======
+		Jf1XYTSXn6l0/kSIdjppcUXGkbY=
+		</data>
+		<key>Modules/Digiteka.swiftmodule/x86_64.swiftmodule</key>
+		<data>
+		wYgexhflvRDxl4JGrvIV+0PwP48=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -96,14 +128,22 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			CTcZljtynW4BmvO8GM+I8srSmGeZ4bDotXVchRbiCMY=
+=======
+			3ZTVOnhafLjO5exZ7RIHQgGCJMsl45Y83BDpOBMwXsE=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			rtGHXvK1B4XOIhomt8SgbfWzvE1wqiD+xhmIEi9CrAA=
+=======
+			AEwA56aZi114zWAv2tVszDki8I2CAegIFPrVUz9bbaA=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/arm64.swiftdoc</key>
@@ -117,14 +157,22 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			CTcZljtynW4BmvO8GM+I8srSmGeZ4bDotXVchRbiCMY=
+=======
+			3ZTVOnhafLjO5exZ7RIHQgGCJMsl45Y83BDpOBMwXsE=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			rtGHXvK1B4XOIhomt8SgbfWzvE1wqiD+xhmIEi9CrAA=
+=======
+			AEwA56aZi114zWAv2tVszDki8I2CAegIFPrVUz9bbaA=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -138,14 +186,22 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			OK1Nrc8oT4cDlQ9LY/D5p19EPqPaQtqwawx+eT9KOTg=
+=======
+			UwFWYjFH3JQ2Vbvh86zXvEQbxDmkC0y6Kdo7+NcRJIE=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			OvSu9x8I5DfqC/TYEqU6tEVp4icB/sqyFow+xha44M0=
+=======
+			tQCropFLuIwjs2jGPEAiWRxE01PHi9h4bOr7wExI29I=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/x86_64.swiftdoc</key>
@@ -159,14 +215,22 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			OK1Nrc8oT4cDlQ9LY/D5p19EPqPaQtqwawx+eT9KOTg=
+=======
+			UwFWYjFH3JQ2Vbvh86zXvEQbxDmkC0y6Kdo7+NcRJIE=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/Digiteka.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			OvSu9x8I5DfqC/TYEqU6tEVp4icB/sqyFow+xha44M0=
+=======
+			tQCropFLuIwjs2jGPEAiWRxE01PHi9h4bOr7wExI29I=
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

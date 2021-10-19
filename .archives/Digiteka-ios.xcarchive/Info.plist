@@ -5,7 +5,11 @@
 	<key>ArchiveVersion</key>
 	<integer>2</integer>
 	<key>CreationDate</key>
+<<<<<<< HEAD
 	<date>2021-10-19T08:18:03Z</date>
+=======
+	<date>2021-07-12T08:14:23Z</date>
+>>>>>>> 5696099516e27c90587e17094a3642c22781d7ce
 	<key>Name</key>
 	<string>Digiteka</string>
 	<key>SchemeName</key>
