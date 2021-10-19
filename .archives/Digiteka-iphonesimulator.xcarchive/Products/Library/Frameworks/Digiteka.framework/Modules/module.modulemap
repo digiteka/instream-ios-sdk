@@ -1,0 +1,11 @@
+framework module Digiteka {
+  umbrella header "Digiteka.h"
+
+  export *
+  module * { export * }
+}
+
+module Digiteka.Swift {
+    header "Digiteka-Swift.h"
+    requires objc
+}
